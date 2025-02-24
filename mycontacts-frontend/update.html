@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Contact</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Update Contact</h2>
+        <form id="update-form">
+            <input type="hidden" id="contact-id">
+            <input type="text" id="name" placeholder="Enter Name" required>
+            <input type="email" id="email" placeholder="Enter Email" required>
+            <input type="text" id="phone" placeholder="Enter Phone Number" required>
+            <button type="submit">Save Changes</button>
+        </form>
+        <button class="logout-btn" onclick="goBack()">Cancel</button>
+    </div>
+
+    <script>
+        const token = localStorage.getItem("token");
+        if (!token) {
+            window.location.href = "login.html";
+        }
+
+        // Get contact ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const contactId = urlParams.get("id");
+
+        if (!contactId) {
+            alert("Invalid contact. Redirecting...");
+            window.location.href = "home.html";
+        }
+
+        // Fetch contact details and pre-fill form
+        async function fetchContactDetails() {
+            try {
+                const response = await fetch(`http://localhost:5000/api/contacts/${contactId}`, {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error("Failed to fetch contact details");
+
+                const contact = await response.json();
+                console.log("Fetched Contact:", contact);  // Debugging log
+
+                if (contact) {
+                    document.getElementById("contact-id").value = contact._id || "";
+                    document.getElementById("name").value = contact.name || "";
+                    document.getElementById("email").value = contact.email || "";
+                    document.getElementById("phone").value = contact.phone || "";
+                } else {
+                    alert("Invalid contact data received");
+                    window.location.href = "home.html";
+                }
+            } catch (error) {
+                console.error("Error fetching contact details:", error);
+                alert("Error fetching contact. Please try again.");
+                window.location.href = "home.html";
+            }
+        }
+
+        document.getElementById("update-form").addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const updatedContact = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value
+            };
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/contacts/${contactId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(updatedContact)
+                });
+
+                if (!response.ok) throw new Error("Failed to update contact");
+
+                alert("Contact updated successfully!");
+                window.location.href = "home.html";
+            } catch (error) {
+                console.error("Error updating contact:", error);
+                alert("Failed to update contact. Try again.");
+            }
+        });
+
+        function goBack() {
+            window.location.href = "home.html";
+        }
+
+        // Fetch contact details when the page loads
+        fetchContactDetails();
+    </script>
+</body>
+</html>
