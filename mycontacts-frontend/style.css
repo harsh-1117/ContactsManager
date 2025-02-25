@@ -1,138 +1,170 @@
-/* General Styling */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #4facfe, #00f2fe);
+    background: #f4f4f4;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    flex-direction: column;
 }
 
-/* Container Styling */
+.header {
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 0;
+}
+
 .container {
     width: 80%;
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     text-align: center;
+    margin-top: 10px;
 }
 
-/* Table Styling */
 table {
-    width: 100%;
+    width: 75%;
+    margin: 0 auto 20px auto;
     border-collapse: collapse;
-    margin-top: 20px;
     background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
+    border: 1px solid #ddd;
     padding: 12px;
     text-align: center;
-    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #007bff;
+    background-color: #343a40;
     color: white;
 }
 
-td {
-    background-color: #f8f9fa;
-}
-
-/* Buttons Styling */
-.create-btn {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.create-btn:hover {
-    background: #1e7e34;
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .edit-btn {
-    background: #007bff;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 8px 12px;
     cursor: pointer;
     border-radius: 5px;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 .edit-btn:hover {
-    background: #0056b3;
+    background-color: #0056b3;
 }
 
 .delete-btn {
-    background: #dc3545;
+    background-color: #dc3545;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 8px 12px;
     cursor: pointer;
     border-radius: 5px;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 .delete-btn:hover {
-    background: #a71d2a;
+    background-color: #a71d2a;
+}
+
+.create-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.create-btn:hover {
+    background-color: #218838;
 }
 
 .logout-btn {
-    background: #ffc107;
+    background-color: #ffc107;
     color: black;
     border: none;
-    padding: 12px 20px;
+    padding: 12px 18px;
     cursor: pointer;
     border-radius: 5px;
-    margin-top: 20px;
-    font-weight: bold;
+    font-size: 18px;
 }
 
 .logout-btn:hover {
-    background: #e0a800;
+    background-color: #e0a800;
 }
 
-/* Form Styling */
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* Form Container */
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
     width: 100%;
+    max-width: 400px;
 }
 
-form input {
-    width: 80%;
+.form-container h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    padding: 10px;
     margin: 10px 0;
-    padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
 }
 
-form button {
-    width: 50%;
-    padding: 12px;
-    border: none;
-    background: #007bff;
+/* Buttons */
+.register-btn {
+    background: #28a745;
     color: white;
-    font-size: 16px;
+    padding: 10px;
+    border: none;
     border-radius: 5px;
+    width: 100%;
     cursor: pointer;
+    font-size: 16px;
 }
 
-form button:hover {
-    background: #0056b3;
+.register-btn:hover {
+    background: #218838;
+}
+
+.cancel-btn {
+    background: #dc3545;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 20%;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.cancel-btn:hover {
+    background: #a71d2a;
 }

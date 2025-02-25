@@ -95,3 +95,53 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const createForm = document.getElementById("create-form");
+
+    // ✅ Handle Contact Creation
+    if (createForm) {
+        createForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("Unauthorized! Please login.");
+                window.location.href = "index.html";
+                return;
+            }
+
+            const newContact = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value
+            };
+
+            try {
+                const response = await fetch("http://localhost:5000/api/contacts", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(newContact)
+                });
+
+                if (!response.ok) throw new Error("Failed to create contact");
+
+                alert("Contact created successfully!");
+                window.location.href = "home.html";
+            } catch (error) {
+                alert("Error creating contact: " + error.message);
+            }
+        });
+    }
+
+    // ✅ Handle Cancel Button
+    window.goBack = function () {
+        window.location.href = "home.html";
+    };
+});
+    

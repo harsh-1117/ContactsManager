@@ -4,56 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Contact</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="header">Create Contact</div>
+    
     <div class="container">
-        <h2>Create New Contact</h2>
-        <form id="create-form">
+        <form id="create-form" class="form-box">
+            <h2>Create New Contact</h2>
             <input type="text" id="name" placeholder="Enter Name" required>
             <input type="email" id="email" placeholder="Enter Email" required>
             <input type="text" id="phone" placeholder="Enter Phone Number" required>
-            <button type="submit">Create Contact</button>
+            <button type="submit" class="register-btn">Create Contact</button>
+            <button type="button" class="cancel-btn" onclick="goBack()">Cancel</button>
         </form>
-        <button class="logout-btn" onclick="goBack()">Cancel</button>
     </div>
-
-    <script>
-        const token = localStorage.getItem("token");
-        if (!token) {
-            window.location.href = "login.html";
-        }
-
-        document.getElementById("create-form").addEventListener("submit", async (event) => {
-            event.preventDefault();
-
-            const newContact = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                phone: document.getElementById("phone").value
-            };
-
-            try {
-                const response = await fetch("http://localhost:5000/api/contacts", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
-                    },
-                    body: JSON.stringify(newContact)
-                });
-
-                if (!response.ok) throw new Error("Failed to create contact");
-
-                window.location.href = "home.html";
-            } catch (error) {
-                console.error("Error creating contact:", error);
-            }
-        });
-
-        function goBack() {
-            window.location.href = "home.html";
-        }
-    </script>
+    
+    <script src="script.js"></script>
 </body>
 </html>

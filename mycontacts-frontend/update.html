@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Contact</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h2>Update Contact</h2>
-        <form id="update-form">
-            <input type="hidden" id="contact-id">
-            <input type="text" id="name" placeholder="Enter Name" required>
-            <input type="email" id="email" placeholder="Enter Email" required>
-            <input type="text" id="phone" placeholder="Enter Phone Number" required>
-            <button type="submit">Save Changes</button>
-        </form>
-        <button class="logout-btn" onclick="goBack()">Cancel</button>
+    <div class="form-container">
+        <h1 class="title">Contacts Manager</h1>
+        <div class="form-box">
+            <h2>Update Contact</h2>
+            <form id="update-form">
+                <input type="hidden" id="contact-id">
+                <input type="text" id="name" placeholder="Enter Name" required>
+                <input type="email" id="email" placeholder="Enter Email" required>
+                <input type="text" id="phone" placeholder="Enter Phone Number" required>
+                <button type="submit" class="register-btn">Save Changes</button>
+            </form>
+            <button class="cancel-btn" onclick="goBack()">Cancel</button>
+        </div>
     </div>
 
     <script>
@@ -25,7 +28,6 @@
             window.location.href = "login.html";
         }
 
-        // Get contact ID from URL
         const urlParams = new URLSearchParams(window.location.search);
         const contactId = urlParams.get("id");
 
@@ -34,7 +36,6 @@
             window.location.href = "home.html";
         }
 
-        // Fetch contact details and pre-fill form
         async function fetchContactDetails() {
             try {
                 const response = await fetch(`http://localhost:5000/api/contacts/${contactId}`, {
@@ -44,7 +45,7 @@
                 if (!response.ok) throw new Error("Failed to fetch contact details");
 
                 const contact = await response.json();
-                console.log("Fetched Contact:", contact);  // Debugging log
+                console.log("Fetched Contact:", contact);
 
                 if (contact) {
                     document.getElementById("contact-id").value = contact._id || "";
@@ -95,7 +96,6 @@
             window.location.href = "home.html";
         }
 
-        // Fetch contact details when the page loads
         fetchContactDetails();
     </script>
 </body>
