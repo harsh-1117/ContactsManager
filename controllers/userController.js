@@ -109,9 +109,10 @@ const loginUser = asyncHandler(async (req, res) => {
                 id: user.id
             }
         },
-        "HarshsProject1",
+        process.env.ACCESS_TOKEN_SECRET,
         { expiresIn: "30m" }
     );
+    
 
     res.status(200).json({ token: accessToken });
 });
@@ -123,4 +124,15 @@ const currentUser = asyncHandler(async (req, res) => {
     res.json(req.user);
 });
 
-module.exports = { registerUser, loginUser, currentUser };
+//@desc Google OAuth Success
+//@route GET /api/user/auth/google/callback
+//@access Public
+const googleAuthSuccess = asyncHandler(async (req, res) => {
+    if (!req.user) {
+        res.status(401);
+        throw new Error("Google OAuth failed");
+    }
+    res.json({ message: "Google OAuth successful", user: req.user.user, token: req.user.token });
+});
+
+module.exports = { registerUser, loginUser, currentUser, googleAuthSuccess };
