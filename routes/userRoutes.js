@@ -13,16 +13,13 @@ router.get("/current", validateToken, currentUser);
 router.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get(
-    "/auth/google/callback",
-    passport.authenticate("google", { session: false, failureRedirect: "/login" }),
-    (req, res) => {
-      res.json({
-        message: "Google OAuth successful",
-        user: req.user.user,
-        token: req.user.token, // Send the JWT token
-      });
-    }
-  );  
+  "/auth/google/callback",
+  passport.authenticate("google", { session: false, failureRedirect: "/login" }),
+  (req, res) => {
+    const token = req.user.token;
+    res.redirect(`http://127.0.0.1:5501/mycontacts-frontend/home.html?token=${token}`);
+  }
+); 
 
 router.get("/logout", (req, res, next) => {
     req.logout(function (err) {

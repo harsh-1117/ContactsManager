@@ -128,11 +128,14 @@ const currentUser = asyncHandler(async (req, res) => {
 //@route GET /api/user/auth/google/callback
 //@access Public
 const googleAuthSuccess = asyncHandler(async (req, res) => {
-    if (!req.user) {
-        res.status(401);
-        throw new Error("Google OAuth failed");
+    if (!req.user || !req.user.token) {
+      res.status(401);
+      throw new Error("Google OAuth failed");
     }
-    res.json({ message: "Google OAuth successful", user: req.user.user, token: req.user.token });
+  
+    const token = req.user.token;
+    // Redirect to frontend like normal auth
+    res.redirect(`http://127.0.0.1:5501/mycontacts-frontend/home.html?token=${token}`);
 });
 
 module.exports = { registerUser, loginUser, currentUser, googleAuthSuccess };

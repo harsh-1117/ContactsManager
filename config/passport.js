@@ -13,10 +13,9 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        console.log("Google Profile:", profile);
-
         let user = await User.findOne({ email: profile.emails[0].value });
 
+        // Create user if not found
         if (!user) {
           user = new User({
             username: profile.displayName,
@@ -28,24 +27,15 @@ passport.use(
           await user.save();
         }
 
-        const secretKey = process.env.ACCESS_TOKEN_SECRET;
-
         // Generate JWT Token
         const token = jwt.sign(
-          {
-            user: {
-              id: user.id,
-              username: user.username,
-              email: user.email,
-            },
-          },
-         secretKey,
+          { user: { id: user.id, username: user.username, email: user.email } },
+          process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: "30m" }
         );
 
         return done(null, { user, token });
       } catch (error) {
-        console.error("Error in Google Strategy:", error);
         return done(error, null);
       }
     }

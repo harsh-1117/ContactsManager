@@ -168,3 +168,39 @@ input {
 .cancel-btn:hover {
     background: #a71d2a;
 }
+
+.container-google {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 16px;
+    font-size: 16px;
+    color: #5f6368;
+    cursor: pointer;
+    font-weight: 500;
+    gap: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .google-btn img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .google-btn:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .google-btn:active {
+    background-color: #e8e8e8;
+  }

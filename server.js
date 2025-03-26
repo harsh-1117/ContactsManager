@@ -11,7 +11,8 @@ connectDB();
 const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
-app.use(passport.initialize()); // Only initialize Passport (No sessions)
+app.use(passport.initialize()); 
+
 
 app.use("/api/contacts", require("./routes/contactRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));

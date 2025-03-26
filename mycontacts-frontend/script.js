@@ -8,7 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
     if (loginForm) {
         loginForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-
+            
+            document.addEventListener("DOMContentLoaded", () => {
+                const googleLoginButton = document.getElementById("googleLogin");
+              
+                if (googleLoginButton) {
+                  googleLoginButton.addEventListener("click", () => {
+                    window.location.href = "http://localhost:5000/api/user/auth/google";
+                  });
+                }
+              });
+              
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
 
@@ -143,5 +153,19 @@ document.addEventListener("DOMContentLoaded", () => {
     window.goBack = function () {
         window.location.href = "home.html";
     };
+
+    document.getElementById("googleLogin").addEventListener("click", () => {
+        window.location.href = "http://localhost:5000/api/user/auth/google";
+        });
+
+        // Handle OAuth redirect
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+
+        if (token) {
+            localStorage.setItem('token', token); // Store token in localStorage
+            alert('Login successful via Google!');
+            window.location.href = 'home.html';
+        }
 });
     
